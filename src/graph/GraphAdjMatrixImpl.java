@@ -25,6 +25,8 @@ public class GraphAdjMatrixImpl extends AbstractGraph {
 		edges.add(e);
 		String strt = e.getStartVertex().props.get("value");
 		String end = e.getEndVertex().props.get("value");
+		System.out.println("addNewEdge - strt - " + strt);
+		System.out.println("addNewEdge - end - " + end);
 		int first = -1, last = -1;
 		for (int i=0; i<vertexes.size(); i++){
 			if (vertexes.get(i).props.get("value") == strt){
@@ -36,13 +38,22 @@ public class GraphAdjMatrixImpl extends AbstractGraph {
 			if (last != -1 && first != -1)
 				break;
 		}
+
 		adjMatrix[first][last] = e;
-		
-		Edge e2 = new Edge();
+		/*System.out.println("addNewEdge - first -" + first);
+		System.out.println("addNewEdge - last - " + last);
+		System.out.println("e.getStartVertex() - " + e.getStartVertex().props.get("value"));
+		System.out.println("e.getEndVertex() - " + e.getEndVertex().props.get("value"));
+		System.out.println("adjMatrix[first][last] - " + adjMatrix[first][last]);*/
+		/*Edge e2 = new Edge();
 		e2.setEndVertex(e.getStartVertex());
 		e2.setStartVertex(e.getEndVertex());
-		adjMatrix[last][first] = e2;
-		
+		adjMatrix[last][first] = e2;*/
+		/*System.out.println("addNewEdge e2 - last - " + last);
+		System.out.println("addNewEdge  e2 - first -" + first);
+		System.out.println("e.getStartVertex() - " + e.getStartVertex().props.get("value"));
+		System.out.println("e.getEndVertex() - " + e.getEndVertex().props.get("value"));
+		System.out.println("adjMatrix[last][first] - " + adjMatrix[last][first]);*/
 	}
 	
 	public void printGraph(){

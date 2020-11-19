@@ -19,6 +19,10 @@ public class GraphColoringWelshPowell extends AbstractGraphColoring
 	public boolean isSafe(ArrayList<Edge> edges){
 		
 		for (Edge e: edges){
+			/*System.out.println("Processing getStartVertex " + e.getStartVertex().props.get("value")
+					+ " with color " + e.getStartVertex().color);
+			System.out.println("Processing getEndVertex " + e.getEndVertex().props.get("value")
+					+ " with color " + e.getEndVertex().color);*/
 			if (e.getStartVertex().color == e.getEndVertex().color)
 				return false;
 		}
@@ -39,6 +43,7 @@ public class GraphColoringWelshPowell extends AbstractGraphColoring
 		int d[]=new int[noofVertices];
 		ArrayList<Edge> edges2;
 		for(int i=0;i<noofVertices;i++)
+
 		{
 			edges2 = G.getEdgesFromAdj(vertices.get(i));
 			d[i]=edges2.size();
@@ -68,14 +73,16 @@ public class GraphColoringWelshPowell extends AbstractGraphColoring
 		
 		ArrayList<Vertex> vertices = getVerticesAccToDegrees(G);
 		int n = Colors.maximumColorsAvailable();
-		
+		System.out.println("Colors--" + n);
 		boolean status = false;
 		
 		for (Vertex v: vertices){
 			
 			ArrayList<Edge> edges = G.getEdgesFromAdj(v);
 			status = false;
-			
+			/*for (Edge e: edges){
+				System.out.println("Edges--" + e.getStartVertex().color + " : " + e.getEndVertex().color);
+			}*/
 			for (int i = 0; i < n; i++){
 				
 				v.color = i;

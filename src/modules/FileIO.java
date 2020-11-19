@@ -29,8 +29,9 @@ public class FileIO {
 			 BufferedReader reader = new BufferedReader(new FileReader(initialFile));
 			 line = reader.readLine();
 			 lineNumber++;
+
 			 while (line != null){
-				 
+				 System.out.println("line - " + line);
 				 //add vertexes
 				 if (lineNumber == 0) { //first line 
 					numberOfvertexes = Integer.parseInt(line);
@@ -41,6 +42,7 @@ public class FileIO {
 				 }
 				 //add edges
 				 else{
+					 System.out.println("numberOfEdges - " + numberOfEdges);
 					 numberOfEdges++;
 					 line = reader.readLine();
 					 lineNumber++;
@@ -56,6 +58,7 @@ public class FileIO {
 		
 		//check if it a complete graph or almost a complete graph. The graph with adj matrix is preferred
 		int threashold = 1;
+		System.out.println("numberOfEdges - " + numberOfEdges + " numberOfvertexes - " + numberOfvertexes);
 		if (2*numberOfEdges > (numberOfvertexes*(numberOfvertexes-1) - threashold))
 			return numberOfvertexes;
 		else
@@ -78,7 +81,7 @@ public class FileIO {
 				 line = reader.readLine();
 				 lineNumber++;
 				 while (line != null){
-					 
+					 System.out.println("Processing line - " + line + " Line Number - " + lineNumber);
 					 //add vertexes
 					 if (lineNumber == 0) { //first line 
 						int vertexes = Integer.parseInt(line);
@@ -100,8 +103,14 @@ public class FileIO {
 						 String v1 = edgs[0];
 						 String v2 = edgs[1];
 						 Edge e = new Edge();
-						 
+						 System.out.println("Processing vertexes size - " + vList.size());
 						 for (int i = 0; i < vList.size(); i++){
+							 /*System.out.println("comparing vList.get(i).props.get(vertexProperty)  - "
+									 + vList.get(i).props.get(vertexProperty) + " - " + v1 +
+									 " - " + Objects.equals(vList.get(i).props.get(vertexProperty),v1));
+							 System.out.println("comparing vList.get(i).props.get(vertexProperty)  - "
+									 + vList.get(i).props.get(vertexProperty) + " - " + v2 +
+									 " - " + Objects.equals(vList.get(i).props.get(vertexProperty),v2));*/
 							 if (Objects.equals(vList.get(i).props.get(vertexProperty),v1)){
 								 e.setStartVertex(vList.get(i));
 							 }
