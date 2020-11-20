@@ -41,10 +41,10 @@ public class GraphAdjMatrixImpl extends AbstractGraph {
 
 		adjMatrix[first][last] = e;
 		// CHECK COMMENTED HERE FOR CORRECT GRAPH
-		Edge e2 = new Edge();
+		/*Edge e2 = new Edge();
 		e2.setEndVertex(e.getStartVertex());
 		e2.setStartVertex(e.getEndVertex());
-		adjMatrix[last][first] = e2;
+		adjMatrix[last][first] = e2;*/
 		/*System.out.println("addNewEdge e2 - last - " + last);
 		System.out.println("addNewEdge  e2 - first -" + first);
 		System.out.println("e.getStartVertex() - " + e.getStartVertex().props.get("value"));
@@ -60,10 +60,10 @@ public class GraphAdjMatrixImpl extends AbstractGraph {
 			for (int j = 0; j<adjMatrix.length; j++){
 				if (adjMatrix[i][j] != null){
 					System.out.println(vertexes.get(i).props.get("value") + " --> " + vertexes.get(j).props.get("value"));
-					System.out.println("---------------END---------------------------");
 				}
 			}
 		}
+		System.out.println("---------------END---------------------------");
 	}
 	
 	public void getGraphDescription() {
@@ -71,7 +71,6 @@ public class GraphAdjMatrixImpl extends AbstractGraph {
 	}
 	
 	public ArrayList<Edge> getEdgesFromAdj(Vertex v){
-		
 		ArrayList<Edge> e = new ArrayList<>();
 		
 		for (int i =0; i < vertexes.size(); i++){

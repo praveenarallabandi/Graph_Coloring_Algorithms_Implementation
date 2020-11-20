@@ -49,8 +49,9 @@ public class GraphColoringBackTracking extends AbstractGraphColoring {
 		for (int i = 0; i < numberOfColors; i++){
 			
 			//color vertex
-			vertices.get(index).color = i;
-			
+			if(vertices.get(index).color == -1) {
+				vertices.get(index).color = i;
+			}
 			//check if it safe
 			if (this.isSafe(G.getEdgesFromAdj(vertices.get(index)))){
 				//color next vertex

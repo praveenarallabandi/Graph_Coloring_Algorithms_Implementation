@@ -13,12 +13,15 @@ import graph.Graph;
 import graph.GraphAdjListImpl;
 import graph.Vertex;
 
+import modules.Metadata;
+
 public class FileIO {
 
 	//return numberofVertices for adjacency Matrix and 0 for adjList graph implementation
-	public static int GraphToCreate(String filename){
+	public static Metadata GraphToCreate(String filename){
 		
-		int numberOfvertexes = 0, numberOfEdges = 0;
+		int numberOfvertexes = 0, numberOfEdges = 0, totalEdges = 0;
+		int[] colorInitial = new int[9];
 		
 		File initialFile = new File(filename);
 		String line = "";
@@ -31,10 +34,13 @@ public class FileIO {
 			 lineNumber++;
 
 			 while (line != null){
-				 System.out.println("line - " + line);
 				 //add vertexes
-				 if (lineNumber == 0) { //first line 
-					numberOfvertexes = Integer.parseInt(line);
+				 if (lineNumber == 0) { //first line
+					 String[] edgs = line.split(" ");
+					 numberOfvertexes = Integer.parseInt(edgs[0]);
+					 totalEdges = Integer.parseInt(edgs[1]);
+					 System.out.println("totalEdges - " + totalEdges);
+					// numberOfvertexes = Integer.parseInt(line);
 					for (int i = 0; i < numberOfvertexes; i++){
 						line = reader.readLine();
 						lineNumber++;
@@ -42,7 +48,15 @@ public class FileIO {
 				 }
 				 //add edges
 				 else{
-					 System.out.println("numberOfEdges - " + numberOfEdges);
+				 	if(lineNumber == 28) {
+						String[] colors = line.split(" ");
+						for (int i = 0; i < colors.length; i++) {
+							int x = Integer.parseInt(colors[i]);
+							colorInitial[i] = x;
+							// System.out.print(" colorInitial " + colorInitial[i]);
+						}
+					}
+					 // System.out.println("numberOfEdges - " + numberOfEdges);
 					 numberOfEdges++;
 					 line = reader.readLine();
 					 lineNumber++;
@@ -57,16 +71,21 @@ public class FileIO {
 		 }
 		
 		//check if it a complete graph or almost a complete graph. The graph with adj matrix is preferred
-		int threashold = 1;
+		/*int threashold = 1;
 		System.out.println("numberOfEdges - " + numberOfEdges + " numberOfvertexes - " + numberOfvertexes);
 		if (2*numberOfEdges > (numberOfvertexes*(numberOfvertexes-1) - threashold))
 			return numberOfvertexes;
 		else
-			return 0;
-		
+			return 0;*/
+		Metadata md = new Metadata(numberOfvertexes,totalEdges, colorInitial);
+		/*md.vertices = numberOfvertexes;
+		md.nodes = numberOfEdges;
+		md.colors = colorInitial.clone();*/
+
+		return md;
 	}
 	
-	public static Graph readDataAndCreateGraph(String filename, Graph G){
+	public static Graph readDataAndCreateGraph(String filename, Graph G, int[] initialColors){
 			
 			String vertexProperty = "value";
 			
@@ -83,45 +102,55 @@ public class FileIO {
 				 while (line != null){
 					 System.out.println("Processing line - " + line + " Line Number - " + lineNumber);
 					 //add vertexes
-					 if (lineNumber == 0) { //first line 
-						int vertexes = Integer.parseInt(line);
+					 if (lineNumber == 0) { //first line
+						// int vertexes = Integer.parseInt(line);
+						 String[] verts = line.split(" ");
+						 int vertexes = Integer.parseInt(verts[0]);
 						while (vertexes > 0){
 							line = reader.readLine();
-							lineNumber++;
 							Vertex v = new Vertex();
 							v.addProp(vertexProperty, line.trim());
+							if(initialColors[lineNumber] != 0) {
+								v.color = initialColors[lineNumber];
+							}
 							vList.add(v);
 							G.addNewVertex(v);
 							vertexes--;
+							lineNumber++;
 						}
 						line = reader.readLine();
 						lineNumber++;
 					 }
 					 //add edges
 					 else{
-						 String[] edgs = line.split(" ");
-						 String v1 = edgs[0];
-						 String v2 = edgs[1];
-						 Edge e = new Edge();
-						 // System.out.println("Processing vertexes size - " + vList.size());
-						 for (int i = 0; i < vList.size(); i++){
+					 	if(lineNumber != 28) {
+							String[] edgs = line.split(" ");
+							String v1 = edgs[0];
+							String v2 = edgs[1];
+							Edge e = new Edge();
+							// System.out.println("Processing vertexes size - " + vList.size());
+							for (int i = 0; i < vList.size(); i++) {
 							 /*System.out.println("comparing vList.get(i).props.get(vertexProperty)  - "
 									 + vList.get(i).props.get(vertexProperty) + " - " + v1 +
 									 " - " + Objects.equals(vList.get(i).props.get(vertexProperty),v1));
 							 System.out.println("comparing vList.get(i).props.get(vertexProperty)  - "
 									 + vList.get(i).props.get(vertexProperty) + " - " + v2 +
 									 " - " + Objects.equals(vList.get(i).props.get(vertexProperty),v2));*/
-							 if (Objects.equals(vList.get(i).props.get(vertexProperty),v1)){
-								 e.setStartVertex(vList.get(i));
-							 }
-							 if (Objects.equals(vList.get(i).props.get(vertexProperty),v2)){
-								 e.setEndVertex(vList.get(i));
-							 }	
-						 }
-						 G.addNewEdge(e);
-						 line = reader.readLine();
-						 lineNumber++;
+								if (Objects.equals(vList.get(i).props.get(vertexProperty), v1)) {
+									e.setStartVertex(vList.get(i));
+								}
+								if (Objects.equals(vList.get(i).props.get(vertexProperty), v2)) {
+									e.setEndVertex(vList.get(i));
+								}
+							}
+							G.addNewEdge(e);
+							line = reader.readLine();
+							lineNumber++;
+						} else {
+							lineNumber++;
+						}
 					 }
+
 					 
 				 }
 				 reader.close();

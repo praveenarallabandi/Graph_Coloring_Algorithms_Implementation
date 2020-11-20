@@ -47,11 +47,17 @@ public class GraphColoringGreedy extends AbstractGraphColoring {
 			
 			ArrayList<Edge> edges = G.getEdgesFromAdj(v);
 			status = false;
-			
+			for (Edge e: edges){
+				System.out.println("Edges - Vertex : start color: " + e.getStartVertex().color + " value:" + e.getStartVertex().props.get("value")
+						+ " - end color: " + e.getEndVertex().color  + " value: " + e.getEndVertex().props.get("value"));
+			}
 			for (int i = 0; i < n; i++){
-				
-				v.color = i;
+				System.out.println(" Vertex intial color : " + v.color + " value:  " + v.props.get("value")  + " - (i) : " + i);
+				if(v.color == -1) {
+					v.color = i;
+				}
 				//update colors cardinality of graph
+				System.out.println(" Vertex : " + v.props.get("value") + " with color index : " + v.color + " G.getColorsCardinality() : " + G.getColorsCardinality());
 				if (G.getColorsCardinality() < i){
 					G.setColorsCardinality(i);
 				}
@@ -82,8 +88,10 @@ public class GraphColoringGreedy extends AbstractGraphColoring {
 			ArrayList<Edge> edges = G.getEdgesFromAdj(v);
 			
 			for (int i = 0; i < noOfColors; i++){
-				
-				v.color = i;
+
+				if(v.color == -1) {
+					v.color = i;
+				}
 				
 				//update colors cardinality of graph
 				if (G.getColorsCardinality() < i){

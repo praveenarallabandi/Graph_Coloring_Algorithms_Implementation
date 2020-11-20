@@ -35,7 +35,7 @@ public class Colors {
 		for (Vertex v: vertices){
 			
 			if (  v.color < vertices.size() && v.color >=0 ){
-				System.out.println("Vertex: " + v.props.get("value") + " has color = " + colors[v.color] + " - with color index = " + (v.color+1));
+				System.out.println("Vertex: " + v.props.get("value") + " has color = " + colors[v.color] + " - with color index = " + (v.color));
 			}
 			else {
 				System.out.println("Vertex: " + v.props.get("value") + " has no color defined");

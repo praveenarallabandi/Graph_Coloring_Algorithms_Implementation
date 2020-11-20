@@ -5,8 +5,11 @@ import graph.GraphAdjMatrixImpl;
 import graphColoringAlgorithms.GraphColoringBackTracking;
 import graphColoringAlgorithms.GraphColoringGreedy;
 import graphColoringAlgorithms.GraphColoringWelshPowell;
+import graphColoringAlgorithms.GraphColoringGreedyDFS;
+import graphColoringAlgorithms.GraphColoringGreedyBFS;
 import modules.Colors;
 import modules.FileIO;
+import modules.Metadata;
 
 public class Start {
 
@@ -28,14 +31,21 @@ public class Start {
 			G = FileIO.readDataAndCreateGraph(path, new GraphAdjMatrixImpl(numberOfVertices));
 		}*/
 		Graph G;
-		int numberOfVertices = 9;
-		System.out.println("processing GraphAdjMatrixImpl - " + numberOfVertices);
-		G = FileIO.readDataAndCreateGraph(path, new GraphAdjMatrixImpl(numberOfVertices));
+		Metadata md = FileIO.GraphToCreate(path);
+		System.out.println("numberOfVertices - " + md.vertices);
+		System.out.println("numberOfEdges - " + md.nodes);
+		for (int i = 0; i < md.colors.length; i++) {
+			System.out.print(": colors - " + md.colors[i]);
+		}
+
+		G = FileIO.readDataAndCreateGraph(path, new GraphAdjMatrixImpl(md.vertices), md.colors);
 		G.printAllVertexes();
 		G.printGraph();
 		// G.setGraphColoringTechnique(new GraphColoringBackTracking());
 		// G.setGraphColoringTechnique(new GraphColoringGreedy());
 		G.setGraphColoringTechnique(new GraphColoringWelshPowell());
+		// G.setGraphColoringTechnique(new GraphColoringGreedyDFS());
+		// G.setGraphColoringTechnique(new GraphColoringGreedyBFS());
 		G.getGraphColoringObj().toggleShuffle();
 		G.colorGraph();
 		Colors.printColors(G);
@@ -45,7 +55,7 @@ public class Start {
 		
 		for (int i = 1; i< 5; i++){
 			if (G.isGraphColorable(i)){
-				System.out.println("The Graph was fully colorable with number of colors = " + i);
+				System.out.println("The Graph was fully colorable with number of additional colors = " + i);
 			}
 			else{
 				System.out.println("The Graph was not fully colorable with number of colors = " + i);

@@ -58,8 +58,10 @@ public class GraphColoringGreedyBFS extends AbstractGraphColoring {
 			
 			//find color for this vertex i
 			for (int j =0; j < n; j++){
-				
-				i.color = j;
+
+				if(i.color == -1) {
+					i.color = j;
+				}
 				
 				//update colors cardinality of graph
 				if (G.getColorsCardinality() < j){
