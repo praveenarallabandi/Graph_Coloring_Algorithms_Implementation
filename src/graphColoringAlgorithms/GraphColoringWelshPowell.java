@@ -72,6 +72,10 @@ public class GraphColoringWelshPowell extends AbstractGraphColoring
 	public void colorGraph(Graph G) {
 		
 		ArrayList<Vertex> vertices = getVerticesAccToDegrees(G);
+		/*System.out.println("VERTICES--getVerticesAccToDegrees--" + vertices.size());
+		for (Vertex v: vertices){
+			System.out.println("vertex " + v.props.get("value") + " v.color: " + v.color);
+		}*/
 		int n = Colors.maximumColorsAvailable();
 		System.out.println("Colors--" + n);
 		boolean status = false;
@@ -81,25 +85,30 @@ public class GraphColoringWelshPowell extends AbstractGraphColoring
 			ArrayList<Edge> edges = G.getEdgesFromAdj(v);
 			status = false;
 			/*for (Edge e: edges){
-				System.out.println("Edges--" + e.getStartVertex().color + " : " + e.getEndVertex().color);
+				System.out.println("Edges : " + e.getStartVertex().color + " : " + e.getEndVertex().color
+						+ " for vertex " + e.getStartVertex().props.get("value") + " : " + e.getEndVertex().props.get("value"));
 			}*/
 			for (int i = 0; i < n; i++){
 				
 				v.color = i;
 				//update colors cardinality of graph
+				System.out.println(" Vertex : " + v.props.get("value") + " with color index : " + v.color + " G.getColorsCardinality() : " + G.getColorsCardinality());
 				if (G.getColorsCardinality() < i){
+					System.out.println(" Setting G.setColorsCardinality(i) : " + i);
 					G.setColorsCardinality(i);
 				}
 				
 				if (this.isSafe(edges)){
 					status = true;
+					System.out.println(" isSafe : " + status + " i : " + i);
 					break;	
 				}
-				
+				System.out.println(" isSafe : " + status + " i : " + i);
 			}
 			
 			//if could not find any color
 			if(!status){
+				System.out.println(" setting v.color as -1 ");
 				v.color = -1; 
 			}
 		}

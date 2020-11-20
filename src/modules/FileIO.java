@@ -103,7 +103,7 @@ public class FileIO {
 						 String v1 = edgs[0];
 						 String v2 = edgs[1];
 						 Edge e = new Edge();
-						 System.out.println("Processing vertexes size - " + vList.size());
+						 // System.out.println("Processing vertexes size - " + vList.size());
 						 for (int i = 0; i < vList.size(); i++){
 							 /*System.out.println("comparing vList.get(i).props.get(vertexProperty)  - "
 									 + vList.get(i).props.get(vertexProperty) + " - " + v1 +

@@ -25,8 +25,8 @@ public class GraphAdjMatrixImpl extends AbstractGraph {
 		edges.add(e);
 		String strt = e.getStartVertex().props.get("value");
 		String end = e.getEndVertex().props.get("value");
-		System.out.println("addNewEdge - strt - " + strt);
-		System.out.println("addNewEdge - end - " + end);
+		/*System.out.println("addNewEdge - strt - " + strt);
+		System.out.println("addNewEdge - end - " + end);*/
 		int first = -1, last = -1;
 		for (int i=0; i<vertexes.size(); i++){
 			if (vertexes.get(i).props.get("value") == strt){
@@ -40,15 +40,11 @@ public class GraphAdjMatrixImpl extends AbstractGraph {
 		}
 
 		adjMatrix[first][last] = e;
-		/*System.out.println("addNewEdge - first -" + first);
-		System.out.println("addNewEdge - last - " + last);
-		System.out.println("e.getStartVertex() - " + e.getStartVertex().props.get("value"));
-		System.out.println("e.getEndVertex() - " + e.getEndVertex().props.get("value"));
-		System.out.println("adjMatrix[first][last] - " + adjMatrix[first][last]);*/
-		/*Edge e2 = new Edge();
+		// CHECK COMMENTED HERE FOR CORRECT GRAPH
+		Edge e2 = new Edge();
 		e2.setEndVertex(e.getStartVertex());
 		e2.setStartVertex(e.getEndVertex());
-		adjMatrix[last][first] = e2;*/
+		adjMatrix[last][first] = e2;
 		/*System.out.println("addNewEdge e2 - last - " + last);
 		System.out.println("addNewEdge  e2 - first -" + first);
 		System.out.println("e.getStartVertex() - " + e.getStartVertex().props.get("value"));
@@ -57,15 +53,14 @@ public class GraphAdjMatrixImpl extends AbstractGraph {
 	}
 	
 	public void printGraph(){
-		
 		this.getGraphDescription();
-		System.out.println("------------------------------------------");
+		System.out.println("--------------PRINTING GRAPH - START----------------------------");
 		for (int i = 0; i<adjMatrix.length; i++){
 			
 			for (int j = 0; j<adjMatrix.length; j++){
 				if (adjMatrix[i][j] != null){
 					System.out.println(vertexes.get(i).props.get("value") + " --> " + vertexes.get(j).props.get("value"));
-					System.out.println("------------------------------------------");
+					System.out.println("---------------END---------------------------");
 				}
 			}
 		}

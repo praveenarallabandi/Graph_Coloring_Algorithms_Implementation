@@ -58,7 +58,7 @@ public class GraphAdjListImpl extends AbstractGraph{
 	public void printGraph(){
 		
 		this.getGraphDescription();
-		System.out.println("------------------------------------------");
+		System.out.println("--------printGraph-START---------------------------------");
 		for (Tuple t : adjList){
 			for (int j = 0; j < t.list.size() ; j++){
 				this.printVertexAndEdge(t.list.get(j));
@@ -66,6 +66,7 @@ public class GraphAdjListImpl extends AbstractGraph{
 			}
 			
 		}
+		System.out.println("--------printGraph-END---------------------------------");
 		
 	}
 	

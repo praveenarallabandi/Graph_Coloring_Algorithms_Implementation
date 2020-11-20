@@ -24,9 +24,11 @@ public abstract class AbstractGraph implements Graph{
 	}
 		
 	public void printAllVertexes(){
+		System.out.println("--------------PRINTING VERTEXES - START----------------------------");
 		for (Vertex v : vertexes){
-			System.out.println(v.props.get("value") + "  ");
+			System.out.println(v.props.get("value") + " with color " + v.color);
 		}
+		System.out.println("--------------END----------------------------");
 	}
 	
 	public void printAllEdges(){
