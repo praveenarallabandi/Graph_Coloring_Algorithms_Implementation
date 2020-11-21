@@ -264,13 +264,6 @@ public class FileIO {
 			 
 			 reader.close();
 			 
-//			 for (int i=0;i<9 ; i++){
-//				 for (int j=0;j<9 ; j++){
-//					 System.out.print(sudokuPuzzle[i][j] + " ");
-//				 }
-//				 System.out.println();
-//			 }
-			 
 			 //create vertices
 			 for (int i = 0; i< 9; i++){
 				 int row = i*9;
@@ -371,10 +364,6 @@ public class FileIO {
 					 addEdgesToGraph(G, start, pos, vertices);
 				 }
 			 }
-			 
-			 
-			 
-			 
 		 }
 		 catch (Exception ex){
 			 System.out.println(ex.getMessage());

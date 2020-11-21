@@ -11,7 +11,7 @@ public class SudokuSolver {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String path = "src/Files/Sudoku2	";
+		String path = "Files/Sudoku";
 		Graph G = FileIO.readSudokuAndCreateGraph(path, new GraphAdjListImpl());
 		G.setGraphColoringTechnique(new GraphColoringBackTrackingForSudoku());
 		G.colorGraph();

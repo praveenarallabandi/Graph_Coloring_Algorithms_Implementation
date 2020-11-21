@@ -21,8 +21,8 @@ public class RandomGraph {
         fileStream.println(String.valueOf(n));
         fileStream.println(String.valueOf(m));
         Random rand = new Random();
-        List<String> l = new ArrayList<>();
-        int g[][] = new int[n][n];
+        List<String> edges = new ArrayList<>();
+        int graph[][] = new int[n][n];
         
         if(m>(n*(n-1))/2){
             System.out.println("#Edges out of bound for a given #Nodes");
@@ -32,14 +32,14 @@ public class RandomGraph {
             int x = rand.nextInt(n)+1;
             int y = rand.nextInt(n)+1;
             
-            while(l.contains(x+" "+y)){
+            while(edges.contains(x+" "+y)){
                 x = rand.nextInt(n)+1;
                 y = rand.nextInt(n)+1;
             }
-            l.add(x+" "+y);
-            l.add(y+" "+x);
-            g[x-1][y-1] =1;
-            g[y-1][x-1] =1;
+            edges.add(x+" "+y);
+            edges.add(y+" "+x);
+            graph[x-1][y-1] =1;
+            graph[y-1][x-1] =1;
             // WriteToFile(x, y);
             System.out.println(x + " " + y);
             fileStream.println(String.valueOf(x + " " + y));
@@ -50,19 +50,19 @@ public class RandomGraph {
             fileStream.print(String.valueOf("0 "));
         }
         
-        int max_degree = -1;
+        int maxDegree = -1;
         for(int i=0;i<n;i++){
             int count = 0;
             for(int j=0;j<n;j++){
-                if(g[i][j]!=0){
+                if(graph[i][j]!=0){
                     count++;
                 }
             }
-            if(count>max_degree)
-                max_degree = count;
+            if(count>maxDegree)
+                maxDegree = count;
         }
         
-        System.out.println("\nMax Degree: "+max_degree);
+        System.out.println("\nMax Degree: "+maxDegree);
         fileStream.close();
     }
 
@@ -81,8 +81,4 @@ public class RandomGraph {
             fileStream.close();
         }
     }
-}
-
-class Obj{
-    int x,y;
 }
