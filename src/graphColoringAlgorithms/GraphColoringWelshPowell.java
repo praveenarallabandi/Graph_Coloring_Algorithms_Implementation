@@ -19,10 +19,10 @@ public class GraphColoringWelshPowell extends AbstractGraphColoring
 	public boolean isSafe(ArrayList<Edge> edges){
 		
 		for (Edge e: edges){
-			/*System.out.println("Processing getStartVertex " + e.getStartVertex().props.get("value")
+			System.out.println("Processing getStartVertex " + e.getStartVertex().props.get("value")
 					+ " with color " + e.getStartVertex().color);
 			System.out.println("Processing getEndVertex " + e.getEndVertex().props.get("value")
-					+ " with color " + e.getEndVertex().color);*/
+					+ " with color " + e.getEndVertex().color);
 			if (e.getStartVertex().color == e.getEndVertex().color)
 				return false;
 		}
@@ -39,7 +39,7 @@ public class GraphColoringWelshPowell extends AbstractGraphColoring
 		ArrayList<Vertex> vertices;
 		vertices = G.getVertices();
 		
-		int noofVertices =  vertices.size();
+		/*int noofVertices =  vertices.size();
 		int d[]=new int[noofVertices];
 		ArrayList<Edge> edges2;
 		for(int i=0;i<noofVertices;i++)
@@ -64,8 +64,11 @@ public class GraphColoringWelshPowell extends AbstractGraphColoring
 				
 				}
 			}
-		}
+		}*/
 
+		for (Vertex v: vertices) {
+			System.out.println(" --> BEFORE Vertex color : " + v.color + " value:  " + v.props.get("value"));
+		}
 		return vertices;
 	}
 	
@@ -73,33 +76,34 @@ public class GraphColoringWelshPowell extends AbstractGraphColoring
 	public void colorGraph(Graph G) {
 		
 		ArrayList<Vertex> vertices = getVerticesAccToDegrees(G);
-		/*for(int i=0;i<vertices.size();i++)
-		{
-			edges2 = G.getEdgesFromAdj(vertices.get(i));
-			d[i]=edges2.size();
-			System.out.println("FINAL - d[i]:"  + d[i] + " for vertex " + (i+1));
-		}*/
+
 		int n = Colors.maximumColorsAvailable();
 		System.out.println("Colors--" + n);
 		boolean status = false;
-		
 		for (Vertex v: vertices){
-			
+			System.out.println(" BEFORE COLOR GRAPH Vertex: " + v.props.get("value") + " has color = " + v.color);
+		}
+		for (Vertex v: vertices){
+			System.out.println(" --> PROCESSING BEFORE Vertex color : " + v.color + " value:  " + v.props.get("value"));
 			ArrayList<Edge> edges = G.getEdgesFromAdj(v);
 			status = false;
 			for (Edge e: edges){
 				System.out.println("Edges - Vertex : start color: " + e.getStartVertex().color + " value:" + e.getStartVertex().props.get("value")
 						+ " - end color: " + e.getEndVertex().color  + " value: " + e.getEndVertex().props.get("value"));
 			}
-			for (int i = 0; i < n; i++){
-				System.out.println(" Vertex intial color : " + v.color + " value:  " + v.props.get("value")  + " - (i) : " + i);
+			for (int i = 1; i <= n; i++){
+				// System.out.println(" Vertex intial color : " + v.color + " value:  " + v.props.get("value")  + " - (i) : " + i);
 				if(v.color == -1) {
+					System.out.println(" Assiging color index (i) : " + i);
 					v.color = i;
+				} else {
+					status = true;
+					break;
 				}
 				//update colors cardinality of graph
 				System.out.println(" Vertex : " + v.props.get("value") + " with color index : " + v.color + " G.getColorsCardinality() : " + G.getColorsCardinality());
 				if (G.getColorsCardinality() < i){
-					System.out.println(" Setting G.setColorsCardinality(i) : " + i);
+					//System.out.println(" Setting G.setColorsCardinality(i) : " + i);
 					G.setColorsCardinality(i);
 				}
 				
@@ -110,6 +114,8 @@ public class GraphColoringWelshPowell extends AbstractGraphColoring
 				}
 				System.out.println(" isSafe : " + status + " i : " + i);
 			}
+
+			System.out.println(" --> PROCESSING AFETR Vertex color : " + v.color + " value:  " + v.props.get("value"));
 			
 			//if could not find any color
 			if(!status){
@@ -117,25 +123,32 @@ public class GraphColoringWelshPowell extends AbstractGraphColoring
 				v.color = -1; 
 			}
 		}
+		ArrayList<Vertex> finalVertices = G.getVertices();
+		for (Vertex v: finalVertices){
+			System.out.println(" COMPLTED COLOR GRAPH Vertex: " + v.props.get("value") + " has color = " + v.color);
+		}
 		
 	}
 	
 	@Override
 	public boolean isGraphColorable(Graph G, int noOfColors){
 		boolean status = true;
-		
+
 		ArrayList<Vertex> vertices = getVerticesAccToDegrees(G);
 		
 		for (Vertex v: vertices){
 			
 			ArrayList<Edge> edges = G.getEdgesFromAdj(v);
-			
+
 			for (int i = 0; i < noOfColors; i++){
 
 				if(v.color == -1) {
 					v.color = i;
+				} else {
+					status = true;
+					break;
 				}
-				
+
 				//update colors cardinality of graph
 				if (G.getColorsCardinality() < i){
 					G.setColorsCardinality(i);

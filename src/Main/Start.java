@@ -53,7 +53,7 @@ public class Start {
 		
 		G.resetColors();
 		
-		for (int i = 1; i< 5; i++){
+		for (int i = 1; i< 4; i++){
 			if (G.isGraphColorable(i)){
 				System.out.println("The Graph was fully colorable with number of additional colors = " + i);
 			}
