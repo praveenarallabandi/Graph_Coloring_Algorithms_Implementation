@@ -26,7 +26,7 @@ public class SuperGraphColoring {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         //File file = new File("randomGraphOutput");
-        File file = new File("input");
+        File file = new File("FILES/input");
         PrintStream fileStream = new PrintStream(new File("output.txt"));
 
         scanner = new Scanner(file);
@@ -118,7 +118,7 @@ public class SuperGraphColoring {
                 count++;
             }
         }
-        preInitalizedColors = new int[count]; 
+        preInitalizedColors = new int[count];
         count = 0;
         for (int i = 0; i < color.length; i++) {
             if (color[i] != 0) {
